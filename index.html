@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; font-src 'self'; object-src 'none'; media-src 'none'; frame-src 'none';">
+    <title>MileMeter - Lease Mileage Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>MileMeter</h1>
+            <p>Track your lease mileage and stay within your limits</p>
+        </header>
+
+        <div class="setup-section" id="setupSection">
+            <h2>Lease Setup</h2>
+            <form id="leaseForm">
+                <div class="form-group">
+                    <label for="startingMileage">Starting Mileage:</label>
+                    <input type="number" id="startingMileage" required>
+                </div>
+                <div class="form-group">
+                    <label for="milesPerYear">Miles Allowed Per Year:</label>
+                    <input type="number" id="milesPerYear" required>
+                </div>
+                <div class="form-group">
+                    <label for="leaseDuration">Lease Duration (months):</label>
+                    <input type="number" id="leaseDuration" required>
+                </div>
+                <div class="form-group">
+                    <label for="costPerMile">Cost Per Mile Over Limit ($):</label>
+                    <input type="number" step="0.01" id="costPerMile" required>
+                </div>
+                <div class="form-group">
+                    <label for="budgetedOverMiles">Budgeted Extra Miles (optional):</label>
+                    <input type="number" id="budgetedOverMiles" placeholder="0">
+                    <small>Additional miles you're willing to pay for (added to your target)</small>
+                </div>
+                <div class="form-group">
+                    <label for="startDate">Lease Start Date:</label>
+                    <input type="date" id="startDate" required>
+                </div>
+                <button type="submit">Start Tracking</button>
+            </form>
+        </div>
+
+        <div class="tracking-section" id="trackingSection" style="display: none;">
+            <div class="status-card">
+                <h2>Current Status</h2>
+                <div id="statusDisplay"></div>
+            </div>
+
+            <div class="reading-form">
+                <h3>Add Mileage Reading</h3>
+                <form id="readingForm">
+                    <div class="form-group">
+                        <label for="currentMileage">Current Odometer Reading:</label>
+                        <input type="number" id="currentMileage" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="readingDate">Date:</label>
+                        <input type="date" id="readingDate" required>
+                    </div>
+                    <button type="submit">Add Reading</button>
+                </form>
+            </div>
+
+            <div class="history-section">
+                <h3>Reading History</h3>
+                <div id="historyDisplay"></div>
+            </div>
+
+            <button id="editLeaseButton" class="edit-btn">Edit Lease Data</button>
+            <button id="resetButton" class="reset-btn">Reset All Data</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
