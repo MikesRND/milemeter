@@ -147,6 +147,13 @@ button:hover {
     padding: 15px;
     margin-bottom: 10px;
     border-radius: 0 8px 8px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.history-item-content {
+    flex: 1;
 }
 
 .history-item-date {
@@ -158,6 +165,25 @@ button:hover {
     font-size: 1.1rem;
     color: #667eea;
     font-weight: 600;
+}
+
+.delete-btn {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin-left: 10px;
+    flex-shrink: 0;
+}
+
+.delete-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.4);
 }
 
 .edit-btn {

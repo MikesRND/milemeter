@@ -432,7 +432,9 @@ class MileMeter {
         this.readings
             .slice()
             .reverse()
-            .forEach(reading => {
+            .forEach((reading, reverseIndex) => {
+                const actualIndex = this.readings.length - 1 - reverseIndex;
+                
                 const historyItem = document.createElement('div');
                 historyItem.className = 'history-item';
                 
@@ -444,13 +446,27 @@ class MileMeter {
                 mileageDiv.className = 'history-item-mileage';
                 mileageDiv.textContent = `${reading.mileage.toLocaleString()} miles`;
                 
-                historyItem.appendChild(dateDiv);
-                historyItem.appendChild(mileageDiv);
+                const contentDiv = document.createElement('div');
+                contentDiv.className = 'history-item-content';
+                contentDiv.appendChild(dateDiv);
+                contentDiv.appendChild(mileageDiv);
                 
                 if (reading.isInitial) {
                     const initialTag = document.createElement('small');
                     initialTag.textContent = 'Initial reading';
-                    historyItem.appendChild(initialTag);
+                    contentDiv.appendChild(initialTag);
+                }
+                
+                historyItem.appendChild(contentDiv);
+                
+                // Add delete button for non-initial readings
+                if (!reading.isInitial) {
+                    const deleteButton = document.createElement('button');
+                    deleteButton.className = 'delete-btn';
+                    deleteButton.textContent = '×';
+                    deleteButton.title = 'Delete this reading';
+                    deleteButton.onclick = () => this.deleteReading(actualIndex);
+                    historyItem.appendChild(deleteButton);
                 }
                 
                 historyDisplay.appendChild(historyItem);
@@ -550,6 +566,26 @@ class MileMeter {
         
         // Keep readings but allow lease modification
         // The readings will be preserved when they submit the form
+    }
+
+    deleteReading(index) {
+        if (index < 0 || index >= this.readings.length) {
+            alert('Invalid reading index');
+            return;
+        }
+
+        const reading = this.readings[index];
+        
+        if (reading.isInitial) {
+            alert('Cannot delete the initial lease reading');
+            return;
+        }
+
+        if (confirm(`Are you sure you want to delete the reading from ${reading.date.toLocaleDateString()} (${reading.mileage.toLocaleString()} miles)?`)) {
+            this.readings.splice(index, 1);
+            this.saveData();
+            this.updateDisplay();
+        }
     }
 
     resetData() {
